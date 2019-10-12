@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - Model - Bool with null</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>fmboolnull
+      </Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>propertyName</ID>
+          <ToolTip>the name of the property under test</ToolTip>
+          <Default>PropertyName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>className</ID>
+          <ToolTip>the name of the class under test</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[[Fact]
+            public void GoodModel_HasExpectedValue() {
+                // arrange
+                var model = MakeModel();
+
+                // act
+
+                // assert
+                model.$propertyName$
+                     .Should()
+                     .BeTrue();
+            }
+
+            [Fact]
+            public void InitializedModel_HasNullValue() {
+                // arrange
+                var model = new $className$();
+
+                // act
+
+                // assert
+                model.$propertyName$
+                     .Should()
+                     .BeNull();
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

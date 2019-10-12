@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - Module - Handler_Strategy_Validator</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>FactModuleHandler</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>operationName</ID>
+          <ToolTip>name of the operation</ToolTip>
+          <Default>OperationName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>namespace</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>NamespaceName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[[Fact]
+            public void HasRegistered$namespace$Handler() {
+                // arrange
+                var diMap = MakeContainer();
+
+                // act
+                var result = diMap.IsRegistered<IHandler<$operationName$>>();
+
+                // assert
+                result.Should()
+                      .BeTrue();
+            }
+
+            [Fact]
+            public void HasRegistered$namespace$Strategy() {
+                // arrange
+                var diMap = MakeContainer();
+
+                // act
+                var result = diMap.IsRegisteredWithKey<IDispatchStrategy>(nameof($operationName$));
+
+                // assert
+                result.Should()
+                      .BeTrue();
+            }
+
+            [Fact]
+            public void HasRegistered$namespace$Validator() {
+                // arrange
+                var diMap = MakeContainer();
+
+                // act
+                var result = diMap.IsRegistered<IValidator<$operationName$>>();
+
+                // assert
+                result.Should()
+                      .BeTrue();
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - Config</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>fcvalue</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>expectedValue</ID>
+          <ToolTip>the value that is expected to be found</ToolTip>
+          <Default>Expected Value</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>keyName</ID>
+          <ToolTip>the key used to lookup the value</ToolTip>
+          <Default>KeyName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>propertyName</ID>
+          <ToolTip>the property under test</ToolTip>
+          <Default>PropertyName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[            [Fact]
+            public void GoodKey_HasExpectedValue() {
+                // arrange
+                var repo       = MockRepoWithValue(Config.$keyName$, null, "Fake $expectedValue$");
+                var fakeConfig = MakeConfig(repo.Object);
+                var expected   = "Fake $expectedValue$";
+
+                // act
+                var test = fakeConfig.$propertyName$;
+
+                // assert
+                test.Should()
+                    .Be(expected);
+            }
+
+            [Fact]
+            public void GoodKey_CallsGetValueOnce() {
+                // arrange
+                var repo       = MockRepoWithValue(Config.$keyName$, null, "Fake $expectedValue$");
+                var fakeConfig = MakeConfig(repo.Object);
+                var expected   = 1;
+
+                // act
+                var test = fakeConfig.$propertyName$;
+
+                // assert
+                repo.Verify(r => r.GetValue(It.IsAny<string>(), It.IsAny<string>()), 
+                            Times.Exactly(expected));
+            }
+
+            [Fact]
+            public void BadKey_HasDefaultValue() {
+                // arrange
+                var fakeConfig = MakeConfig();
+
+                // act
+                var test = fakeConfig.$propertyName$;
+
+                // assert
+                test.Should()
+                    .BeNull();
+            }
+
+            [Fact]
+            public void BadKey_CallsGetValueOnce() {
+                // arrange
+                var repo       = MockRepo();
+                var fakeConfig = MakeConfig(repo.Object);
+                var expected   = 1;
+
+                // act
+                var test = fakeConfig.$propertyName$;
+
+                // assert
+                repo.Verify(r => r.GetValue(It.IsAny<string>(), It.IsAny<string>()), 
+                            Times.Exactly(expected));
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
