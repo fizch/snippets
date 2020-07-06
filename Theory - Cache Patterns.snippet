@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Theory - Cache Patterns</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>tpatterns</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>GetCachePatternList</ID>
+          <ToolTip>GetCachePatternList</ToolTip>
+          <Default>GetCachePatternList</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>TestClass</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>TestClass</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[[Theory, MemberData(nameof($GetCachePatternList$), MemberType = typeof($TestClass$))]
+            public void HasExpectedParameters(string key) {
+                // arrange
+                var model = MakeModel();
+
+                // act
+                var results = model.CachePatterns
+                                   .Any(p => p.Contains(key));
+
+                // assert
+                results.Should()
+                       .BeTrue();
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

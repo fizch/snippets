@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Validator - Good Model</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>FactValidatorGoodModel</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ModelName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>ModelName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[            [Fact]
+            public void GoodModel_ReturnsEmptyString() {
+                // arrange
+                var validator = MakeValidator();
+                var model = new $ModelName$() {
+                };
+
+                // act
+                var results = validator.Validate(model);
+
+                // assert
+                results.Should()
+                       .BeEmpty();
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

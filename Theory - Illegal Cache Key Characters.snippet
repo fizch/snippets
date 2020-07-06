@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Theory - Illegal Cache Key Characters</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>TIllegalCacheKeyParts</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EnumeratorName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>EnumeratorName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>TestClassName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>TestClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[            [Theory, MemberData(nameof($EnumeratorName$), MemberType = typeof($TestClassName$))]
+            public void DoesNotHaveIllegalCharacters(string unexpected) {
+                // arrange
+                var model = MakeModel();
+
+                // act
+
+                // assert
+                model.CacheKey
+                     .Should()
+                     .NotContain(unexpected);
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Theory - Cache Key List</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>tkeys</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>GetCacheKeyList</ID>
+          <ToolTip>GetCacheKeyList</ToolTip>
+          <Default>GetCacheKeyList</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>TestClass</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>TestClass</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[[Theory, MemberData(nameof($GetCacheKeyList$), MemberType = typeof($TestClass$))]
+            public void HasExpectedParameters(string key) {
+                // arrange
+                var model = MakeModel();
+
+                // act
+                var results = model.CacheKeys
+                                   .Any(k => k.Contains(key));
+
+                // assert
+                results.Should()
+                       .BeTrue();
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - Module - IsRegistered</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>fmisregistered</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>name of the class we are looking for</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>IDatabaseExecuteCommand</ID>
+          <ToolTip>name of the interface implemented by the class</ToolTip>
+          <Default>InterfaceName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[            [Fact]
+            public void HasRegistered$ClassName$() {
+                // arrange
+                var diMap = MakeContainer();
+
+                // act
+                var results = diMap.IsRegistered<$IDatabaseExecuteCommand$>();
+
+                // assert
+                results.Should()
+                       .BeTrue();
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

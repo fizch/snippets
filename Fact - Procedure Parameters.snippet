@@ -5,63 +5,58 @@
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
       </SnippetTypes>
-      <Title>Fact - Model - Decimal</Title>
+      <Title>Fact - Procedure Parameters</Title>
       <Author>
       </Author>
       <Description>
       </Description>
       <HelpUrl>
       </HelpUrl>
-      <Shortcut>fmdec</Shortcut>
+      <Shortcut>FactProcedureParameters</Shortcut>
     </Header>
     <Snippet>
       <Declarations>
         <Literal Editable="true">
-          <ID>expected</ID>
-          <ToolTip>the expected value</ToolTip>
-          <Default>1.23m</Default>
+          <ID>EnumeratorName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>EnumeratorName</Default>
           <Function>
           </Function>
         </Literal>
         <Literal Editable="true">
-          <ID>propertyName</ID>
-          <ToolTip>the name of the property under test</ToolTip>
-          <Default>PropertyName</Default>
-          <Function>
-          </Function>
-        </Literal>
-        <Literal Editable="true">
-          <ID>className</ID>
-          <ToolTip>the name of the class under test</ToolTip>
-          <Default>ClassName</Default>
+          <ID>TestClassName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>TestClassName</Default>
           <Function>
           </Function>
         </Literal>
       </Declarations>
-      <Code Language="csharp" Delimiter="$"><![CDATA[[Fact]
-            public void GoodModel_HasExpectedValue() {
+      <Code Language="csharp" Delimiter="$"><![CDATA[            [Fact]
+            public void HasExpectedParameterCount() {
                 // arrange
                 var model    = MakeModel();
-                var expected = $expected$;
+                var expected = $EnumeratorName$().Count();
 
                 // act
 
                 // assert
-                model.$propertyName$
+                model.Parameters
+                     .Count
                      .Should()
                      .Be(expected);
             }
 
-            [Fact]
-            public void InitializeModel_HasDefaultValue() {
+            [Theory, MemberData(nameof($EnumeratorName$), MemberType = typeof($TestClassName$))]
+            public void HasExpectedParameters(string key, object expected) {
                 // arrange
-                var model    = new $className$();
-				var expected = default(decimal);
+                var model = MakeModel();
 
                 // act
 
                 // assert
-                model.$propertyName$
+                model.Parameters[key]
                      .Should()
                      .Be(expected);
             }]]></Code>

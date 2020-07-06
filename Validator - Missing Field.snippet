@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Validator - Missing Field</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>ValidatorMissingFieldName</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Model</ID>
+          <ToolTip>Model</ToolTip>
+          <Default>Model</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>FieldName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[            [Fact]
+            public void Missing$FieldName$_ReturnsExpectedCount() {
+                // arrange
+                var validator = MakeValidator();
+                $Model$
+                var expected = 1;
+
+                // act
+                var results = validator.Validate(model);
+
+                // assert
+                results.Count
+                       .Should()
+                       .Be(expected);
+            }
+
+            [Fact]
+            public void Missing$FieldName$_ReturnsExpectedFieldName() {
+                // arrange
+                var validator = MakeValidator();
+                $Model$
+                var expected = "$FieldName$";
+
+                // act
+                var results = validator.Validate(model);
+
+                // assert
+                results[0].FieldName
+                          .Should()
+                          .Be(expected);
+            }
+
+            [Fact]
+            public void Missing$FieldName$_ReturnsExpectedMessage() {
+                // arrange
+                var validator = MakeValidator();
+                $Model$
+                var expected = "$FieldName$ is required";
+
+                // act
+                var results = validator.Validate(model);
+
+                // assert
+                results[0].Message
+                          .Should()
+                          .Be(expected);
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

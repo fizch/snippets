@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - Module - Procedure Handlers</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>fmph</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ProcedureName</ID>
+          <ToolTip>the name of the procedure</ToolTip>
+          <Default>ProcedureName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>CommandName</ID>
+          <ToolTip>CommandName</ToolTip>
+          <Default>CommandName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[            [Fact]
+            public void HasRegistered$ProcedureName$CacheReader() {
+                // arrange
+                var diMap = MakeContainer();
+
+                // act
+                var result = diMap.IsRegistered<IProcedureCacheReader<$CommandName$>>();
+
+                // assert
+                result.Should()
+                      .BeTrue();
+            }
+
+            [Fact]
+            public void HasRegistered$ProcedureName$Handler() {
+                // arrange
+                var diMap = MakeContainer();
+
+                // act
+                var result = diMap.IsRegistered<IProcedureHandler<$CommandName$>>();
+
+                // assert
+                result.Should()
+                      .BeTrue();
+            }
+
+            [Fact]
+            public void HasRegistered$ProcedureName$Strategy() {
+                // arrange
+                var diMap = MakeContainer();
+
+                // act
+                var result = diMap.IsRegisteredWithKey<IDispatcherStrategy>(nameof($CommandName$));
+
+                // assert
+                result.Should()
+                      .BeTrue();
+            }
+
+            [Fact]
+            public void HasRegistered$ProcedureName$Validator() {
+                // arrange
+                var diMap = MakeContainer();
+
+                // act
+                var result = diMap.IsRegistered<IProcedureValidator<$CommandName$>>();
+
+                // assert
+                result.Should()
+                      .BeTrue();
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
