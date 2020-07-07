@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - Get Strategy Factory</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>FactGetStrategyFactory</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>CommandName</ID>
+          <ToolTip> </ToolTip>
+          <Default>CommandName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>NameSpace</ID>
+          <ToolTip> </ToolTip>
+          <Default>Vantora.Something</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[            [Fact]
+            public void $CommandName$_ReturnsExpectedStrategy() {
+                // arrange
+                var factory = MakeFactory();
+                var typeName = typeof($CommandName$).FullName;
+
+                // act
+                var result = factory.GetStrategy(typeName);
+
+                // assert
+                result.Should()
+                      .BeOfType<$NameSpace$.Strategy>();
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
