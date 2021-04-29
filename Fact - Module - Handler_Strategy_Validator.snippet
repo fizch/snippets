@@ -51,7 +51,7 @@
                 var diMap = MakeContainer();
 
                 // act
-                var result = diMap.IsRegisteredWithKey<IDispatchStrategy>(nameof($operationName$));
+                var result = diMap.IsRegisteredWithKey<IDispatcherStrategy>(nameof($operationName$));
 
                 // assert
                 result.Should()
