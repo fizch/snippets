@@ -24,7 +24,8 @@
           </Function>
         </Literal>
       </Declarations>
-      <Code Language="csharp" Delimiter="$"><![CDATA[        public class $RetryCount$ {
+      <Code Language="csharp" Delimiter="$"><![CDATA[
+	  public class RetryCount {
             [Fact]
             public void HasExpectedValue() {
                 // arrange
@@ -34,7 +35,7 @@
                 // act
 
                 // assert
-                model.$RetryCount$
+                model.RetryCount
                      .Should()
                      .Be(expected);
             }
