@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Validator - Propery With Default Date</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>validatedefaultdate</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>PropertyName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>PropertyName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>model</ID>
+          <ToolTip>model</ToolTip>
+          <Default>model</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[            [Fact]
+            public void $PropertyName$IsDefaultDate_ReturnsEmptyString() {
+                // arrange
+                var validator = MakeValidator();
+                $model$
+                var expected = 1;
+
+                // act
+                var results = validator.Validate(model);
+
+                // assert
+                results.Count
+                       .Should()
+                       .Be(expected);
+            }
+
+            [Fact]
+            public void $PropertyName$IsDefaultDate_ReturnsExpectedFieldName() {
+                // arrange
+                var validator = MakeValidator();
+                $model$
+                var expected = "$PropertyName$";
+
+                // act
+                var results = validator.Validate(model);
+
+                // assert
+                results[0]
+                        .FieldName
+                        .Should()
+                        .Be(expected);
+            }
+
+            [Fact]
+            public void $PropertyName$IsDefaultDate_ReturnsExpectedMessage() {
+                // arrange
+                var validator = MakeValidator();
+                $model$
+                var expected = "Below the minimum value";
+
+                // act
+                var results = validator.Validate(model);
+
+                // assert
+                results[0]
+                        .Message
+                        .Should()
+                        .Be(expected);
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
