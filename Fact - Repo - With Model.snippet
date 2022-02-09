@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - Repo - With Model</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>factrepomodel</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>MethodName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>MethodName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ContextName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>ContextName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>CommandName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>CommandName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[            [Fact]
+            public void EveryCall_CallsExecuteCommand() {
+                // arrange
+                var msRepo = MockMicroServiceRepository();
+                var repo   = MakeRepo(repo: msRepo.Object);
+                var model  = MakeModel();
+
+                // act
+                repo.$MethodName$(model)
+                    .GetAwaiter()
+                    .GetResult();
+
+                // assert
+                msRepo.Verify(r => r.ExecuteCommand<bool>(It.IsAny<BaseQueueContext>(),
+                                                          It.IsAny<IProcedure>(),
+                                                          It.IsAny<string>()));
+            }
+
+            [Fact]
+            public void EveryCall_SendsTheExpectedContext() {
+                // arrange
+                var context = MakeRegistrationQueueContext();
+                var msRepo  = MockMicroServiceRepository();
+                var repo    = MakeRepo(context: context,
+                                       repo: msRepo.Object);
+                var model    = MakeModel();
+                var expected = context.GetHashCode();
+
+                // act
+                repo.$MethodName$(model)
+                    .GetAwaiter()
+                    .GetResult();
+
+                // assert
+                msRepo.Verify(r => r.ExecuteCommand<bool>(It.Is<$ContextName$>(ctx => ctx.GetHashCode() == expected),
+                                                          It.IsAny<IProcedure>(),
+                                                          It.IsAny<string>()));
+            }
+
+            [Fact]
+            public void EveryCall_SendsTheExpectedCommand() {
+                // arrange
+                var msRepo = MockMicroServiceRepository();
+                var repo   = MakeRepo(repo: msRepo.Object);
+                var model  = MakeModel();
+
+                // act
+                repo.$MethodName$(model)
+                    .GetAwaiter()
+                    .GetResult();
+
+                // assert
+                msRepo.Verify(r => r.ExecuteCommand<bool>(It.IsAny<BaseQueueContext>(),
+                                                          It.IsAny<$CommandName$>(),
+                                                          It.IsAny<string>()));
+            }
+
+            [Fact]
+            public void EveryCall_SendsTheExpectedMethodName() {
+                // arrange
+                var msRepo   = MockMicroServiceRepository();
+                var repo     = MakeRepo(repo: msRepo.Object);
+                var expected = nameof($MethodName$);
+                var model    = MakeModel();
+
+                // act
+                repo.$MethodName$(model)
+                    .GetAwaiter()
+                    .GetResult();
+
+                // assert
+                msRepo.Verify(r => r.ExecuteCommand<bool>(It.IsAny<BaseQueueContext>(),
+                                                          It.IsAny<IProcedure>(),
+                                                          It.Is<string>(mn => mn == expected)));
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - Repo - Sends Expected SiteGuid</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>factrepositeguid</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>MethodName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>MethodName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>CommandName</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>CommandName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$" Kind="method body"><![CDATA[            [Fact]
+            public void EveryCall_SendsTheCommandWithTheExpectedSiteGuid() {
+                // arrange
+                var msRepo   = MockMicroServiceRepository();
+                var repo     = MakeRepo(repo: msRepo.Object);
+                var expected = GOOD_GUID;
+
+                // act
+                repo.$MethodName$
+                    .GetAwaiter()
+                    .GetResult();
+
+                // assert
+                msRepo.Verify(r => r.ExecuteCommand<bool>(It.IsAny<BaseQueueContext>(),
+                                                          It.Is<$CommandName$>(cmd => cmd.SiteGuid == expected),
+                                                          It.IsAny<string>()));
+            }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
