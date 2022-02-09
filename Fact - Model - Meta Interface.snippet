@@ -5,24 +5,17 @@
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
       </SnippetTypes>
-      <Title>Fact - Model - Meta Properties</Title>
+      <Title>Fact - Model - Meta Interface</Title>
       <Author>
       </Author>
       <Description>
       </Description>
       <HelpUrl>
       </HelpUrl>
-      <Shortcut>fmmetaprop</Shortcut>
+      <Shortcut>fmmetainterface</Shortcut>
     </Header>
     <Snippet>
       <Declarations>
-        <Literal Editable="true">
-          <ID>propertyCount</ID>
-          <ToolTip>the number of expected properties</ToolTip>
-          <Default>0</Default>
-          <Function>
-          </Function>
-        </Literal>
         <Literal Editable="true">
           <ID>className</ID>
           <ToolTip>the name of the class under test</ToolTip>
@@ -30,22 +23,31 @@
           <Function>
           </Function>
         </Literal>
+		<Literal Editable="true">
+          <ID>interfaceName</ID>
+          <ToolTip>the name of the interface being implemented by the class under test</ToolTip>
+          <Default>IInterface</Default>
+          <Function>
+          </Function>
+        </Literal>
       </Declarations>
-      <Code Language="csharp" Delimiter="$"><![CDATA[public class Meta {
-            [Fact]
-            public void HasExpectedNumberOfProperties() {
-                // arrange
-                var expected = $propertyCount$;
+      <Code Language="csharp" Delimiter="$">
+  <![CDATA[
+    public class Meta {
+        [Fact]
+        public void ImplementsExpectedInterface() {
+            // arrange
+            using var mock  = AutoMock.GetLoose();
+            var       model = mock.Create<$className$>();
 
-                // act
-                var results = typeof($className$).GetProperties()
-                                             .Length;
+            // act
 
-                // assert
-                results.Should()
-                       .Be(expected);
-            }
-        }]]></Code>
+            // assert
+            model.Should()
+                 .BeAssignableTo<$interfaceName$>();
+        }
+    }
+]]></Code>
     </Snippet>
   </CodeSnippet>
 </CodeSnippets>
