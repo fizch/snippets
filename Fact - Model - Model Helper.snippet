@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - Model - Model Helper</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>fmhelper
+      </Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>className</ID>
+          <ToolTip>the name of the class under test</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[
+        public class Properties {
+            private static readonly Func<$className$> HydrateModel = TEST_DATA_CLASS.MODEL_GENERATION_METHOD;
+            private static readonly Func<$className$> NewModel     = () => new();
+            
+            public static Dictionary<string, object> ExpectedValues() =>
+                new() {
+                    { nameof($className$.PropertyName), TEST_DATA_CLASS},
+                };
+
+            public static IEnumerable<object[]> ModelProperties() => ModelHelpers.GetAllProperties(HydrateModel());
+
+            [Theory(DisplayName = "Good Model, has expected value"), MemberData(nameof(ModelProperties))]
+            public void GoodModel_CheckProperties(PropertyInfo property) {
+                // arrange
+                var model    = HydrateModel();
+                var expected = ExpectedValues()[property.Name];
+
+                // act
+                var value = property.GetValue(model);
+
+                // assert
+                ModelHelpers.PropertyEquals(property, value!, expected);
+            }
+
+            [Theory(DisplayName = "Initialized Model, has expected value"), MemberData(nameof(ModelProperties))]
+            public void InitializedModel_CheckDefaults(PropertyInfo property) {
+                // arrange
+                var model    = NewModel();
+                var expected = property.PropertyType.IsValueType
+							 ? Activator.CreateInstance(property.PropertyType)
+							 : null;
+
+                if (property.CanWrite == false) {
+                    expected = property.GetValue(model);
+                }
+
+                // act
+                var value = property.GetValue(model);
+
+                // assert
+                ModelHelpers.PropertyEquals(property, value!, expected!);
+            }
+        }
+	  ]]>
+		</Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
