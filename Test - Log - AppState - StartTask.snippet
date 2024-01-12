@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Test - Log - AppState - StartTask</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>logappstatestarttask</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>decoratorName</ID>
+          <ToolTip>the name of the class under test</ToolTip>
+          <Default>MyStateLogger</Default>
+        </Literal>
+        <Literal Editable="true">
+          <ID>className</ID>
+          <ToolTip>the name of the state class</ToolTip>
+          <Default>MyState</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp"><![CDATA[[Fact]
+public void EveryCall_WritesWarningMessage() {
+    // arrange
+    using var mock     = AutoMock.GetLoose();
+    var       logger   = mock.Create<$decoratorName$>();
+    var       expected = "{methodName} called from {className} erroneously";
+
+    // act
+    logger.StartTask();
+
+    // assert
+    mock.Mock<ILogger>()
+        .Verify(l => l.Warning(It.Is<string>(msg => msg == expected),
+                               It.IsAny<string>(),
+                               It.IsAny<string>()));
+}
+
+[Fact]
+public void EveryCall_WritesWarningMessageWithExpectedMethodName() {
+    // arrange
+    using var mock     = AutoMock.GetLoose();
+    var       logger   = mock.Create<$decoratorName$>();
+    var       expected = nameof(StartTask);
+
+    // act
+    logger.StartTask();
+
+    // assert
+    mock.Mock<ILogger>()
+        .Verify(l => l.Warning(It.IsAny<string>(),
+                               It.Is<string>(mn => mn == expected),
+                               It.IsAny<string>()));
+}
+
+[Fact]
+public void EveryCall_WritesWarningMessageWithExpectedClassName() {
+    // arrange
+    using var mock     = AutoMock.GetLoose();
+    var       logger   = mock.Create<$decoratorName$>();
+    var       expected = nameof($className$);
+
+    // act
+    logger.StartTask();
+
+    // assert
+    mock.Mock<ILogger>()
+        .Verify(l => l.Warning(It.IsAny<string>(),
+                               It.IsAny<string>(),
+                               It.Is<string>(cn => cn == expected)));
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
