@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Test - Log - Information - Expected</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>loginfoexpected</Shortcut>
+    </Header>
+    <Snippet>
+      <Code Language="csharp"><![CDATA[mock.Mock<ILogger>()
+                .Verify(l => l.Information(It.Is<string>(msg => msg == expected)));]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

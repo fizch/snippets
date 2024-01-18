@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Test - Log - Information - StartsWith</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>loginfostarts</Shortcut>
+    </Header>
+    <Snippet>
+      <Code Language="csharp"><![CDATA[mock.Mock<ILogger>()
+                .Verify(l => l.Information(It.Is<string>(msg => msg.StartsWith(expected))));]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
