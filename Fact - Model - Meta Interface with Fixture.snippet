@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - Model - Meta Interface (Fixture)</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>fmmetaifix</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>className</ID>
+          <ToolTip>the name of the class under test</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+		<Literal Editable="true">
+          <ID>interfaceName</ID>
+          <ToolTip>the name of the interface being implemented by the class under test</ToolTip>
+          <Default>IInterface</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$">
+  <![CDATA[
+    public class Meta {
+        [Fact]
+        public void ImplementsExpectedInterface() {
+            // arrange
+            var fixture = new Fixture().Customize(new AutoFakeItEasyCustomization());
+            var model   = fixture.Create<$className$>();
+
+            // act
+
+            // assert
+            model.Should()
+                 .BeAssignableTo<$interfaceName$>();
+        }
+    }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
