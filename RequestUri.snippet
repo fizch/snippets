@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>RequestUri</Title>
+      <Shortcut>ruri</Shortcut>
+      <Description>Creats a class for RequestUri with an embedded test</Description>
+      <Author>Jeremy Ames</Author>
+    </Header>
+    <Snippet>
+	  <Declarations>
+        <Literal Editable="true">
+          <ID>requestClass</ID>
+          <ToolTip>the name of the class under test</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+		<Literal Editable="true">
+          <ID>uri</ID>
+          <ToolTip>the path being tested</ToolTip>
+          <Default>URI</Default>
+          <Function>
+          </Function>
+        </Literal>
+	  </Declarations>
+      <Code Language="csharp" delimeter="$">
+<![CDATA[    public class RequestUri {
+        [Fact]
+        public void EveryCall_HasExpectedValue() {
+            // arrange
+            var request  = new $requestClass$();
+            var expected = "$uri$";
+
+            // act
+
+            // assert
+            request.RequestUri
+                   .Should()
+                   .Be(expected);
+        }
+}]]>
+	  </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
