@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - API - No Return Data - async</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>fanra</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>className</ID>
+          <ToolTip>the name of the class under test</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+		<Literal Editable="true">
+          <ID>methodName</ID>
+          <ToolTip>the name of the method under test</ToolTip>
+          <Default>MethodName</Default>
+          <Function>
+          </Function>
+        </Literal>
+
+        <Literal Editable="true">
+          <ID>requestName</ID>
+          <ToolTip>the name of the request class</ToolTip>
+          <Default>RequestName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>responseName</ID>
+          <ToolTip>the name of the response</ToolTip>
+          <Default>ResponseName</Default>
+          <Function>
+          </Function>
+        </Literal>
+	  </Declarations>
+      <Code Language="csharp" Delimiter="$">
+  <![CDATA[
+        [Fact]
+        public async Task EveryCall_CallsExecute()
+        {
+            // arrange
+            var fixture = new Fixture().Customize(new AutoFakeItEasyCustomization());
+            var cmd     = fixture.Freeze<IGetMapiResponseCommand>();
+            var cut     = fixture.Create<$className$>();
+            var request = new $requestName$();
+
+            // act
+            await cut.$methodName$(request);
+
+            // assert
+            A.CallTo(() => cmd.ExecuteAsync<$requestName$, $responseName$>(A<$requestName$>.Ignored))
+             .MustHaveHappenedOnceExactly();
+        }
+
+        [Fact]
+        public async Task EveryCall_CallsExecuteWithExpectedRequest()
+        {
+            // arrange
+            var fixture  = new Fixture().Customize(new AutoFakeItEasyCustomization());
+            var cmd      = fixture.Freeze<IGetMapiResponseCommand>();
+            var cut      = fixture.Create<$className$>();
+            var request  = new $requestName$();
+            var expected = request.GetHashCode();
+
+            // act
+            await cut.$methodName$(request);
+
+            // assert
+            A.CallTo(() => cmd.ExecuteAsync<$requestName$, $responseName$>(A<$requestName$>.That.Matches(m => m.GetHashCode() == expected)))
+             .MustHaveHappened();
+        }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
