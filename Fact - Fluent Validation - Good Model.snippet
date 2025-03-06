@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - Fluent Validation - Good Model</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>ffvgood</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+		<Literal Editable="true">
+          <ID>modelName</ID>
+          <ToolTip>the name of the model</ToolTip>
+          <Default>ModelName</Default>
+          <Function>
+          </Function>
+        </Literal>
+		<Literal Editable="true">
+          <ID>validatorName</ID>
+          <ToolTip>the name of the validation profile</ToolTip>
+          <Default>validatorName</Default>
+          <Function>
+          </Function>
+        </Literal>
+	  </Declarations>
+      <Code Language="csharp" Delimiter="$">
+  <![CDATA[
+		[Fact]
+		public void GoodModel_IsValid() {
+			// arrange
+			var fixture = new Fixture();
+			var model   = new $modelName$() {
+			};
+			var cut = new $validatorName$();
+
+			// act
+			var results = cut.Validate(model);
+
+			// assert
+			results.IsValid
+				   .Should()
+				   .BeTrue();
+		}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

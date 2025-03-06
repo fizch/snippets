@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Fact - Fluent Validation - Min Value</Title>
+      <Author>
+      </Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>ffvminv</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>dataClass</ID>
+          <ToolTip>the name of the class holding the test data</ToolTip>
+          <Default>DataClass</Default>
+          <Function>
+          </Function>
+        </Literal>
+		<Literal Editable="true">
+          <ID>modelName</ID>
+          <ToolTip>the name of the model</ToolTip>
+          <Default>ModelName</Default>
+          <Function>
+          </Function>
+        </Literal>
+		<Literal Editable="true">
+          <ID>validatorName</ID>
+          <ToolTip>the name of the validation profile</ToolTip>
+          <Default>validatorName</Default>
+          <Function>
+          </Function>
+        </Literal>
+	  </Declarations>
+      <Code Language="csharp" Delimiter="$">
+  <![CDATA[
+		[Theory]
+        [ClassData(typeof($dataClass$))]
+        public void DataIsBelowValue_IsNotValid(string propertyName, string errorMessage, int value) {
+            // arrange
+            var model = new $modelName$();
+            var cut   = new $validatorName$();
+
+            // act
+            var results = cut.Validate(model);
+
+            // assert
+            results.Errors
+                   .Should()
+                   .ContainSingle(e => e.PropertyName == propertyName &&
+                                       e.ErrorMessage.Contains(errorMessage));
+        }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
