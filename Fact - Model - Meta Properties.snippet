@@ -17,35 +17,61 @@
     <Snippet>
       <Declarations>
         <Literal Editable="true">
-          <ID>propertyCount</ID>
-          <ToolTip>the number of expected properties</ToolTip>
-          <Default>0</Default>
-          <Function>
-          </Function>
-        </Literal>
-        <Literal Editable="true">
           <ID>className</ID>
           <ToolTip>the name of the class under test</ToolTip>
           <Default>ClassName</Default>
           <Function>
           </Function>
         </Literal>
+        <Literal Editable="true">
+          <ID>propertyCount</ID>
+          <ToolTip>the number of public properties expected</ToolTip>
+          <Default>1</Default>
+          <Function>
+          </Function>
+        </Literal>
       </Declarations>
-      <Code Language="csharp" Delimiter="$"><![CDATA[public class Meta {
-            [Fact]
-            public void HasExpectedNumberOfProperties() {
-                // arrange
-                var expected = $propertyCount$;
-
-                // act
-                var results = typeof($className$).GetProperties()
-                                             .Length;
-
-                // assert
-                results.Should()
-                       .Be(expected);
+      <Code Language="csharp" Delimiter="$">
+  <![CDATA[
+    public class Meta {
+        #region test setup
+        private class ClassPropertyNames :  PropertyListBase {
+            public ClassPropertyNames() {
+                Add(nameof($className$.PropertyName));
             }
-        }]]></Code>
+        }
+        #endregion
+
+        [Fact]
+        public void ClassHasExpectedCountOfProperties() {
+            // arrange
+            var type          = typeof($className$);
+            var properties    = type.GetProperties();
+            var propertyCount = properties.Length;
+            var expected      = $propertyCount$;
+
+            // act
+
+            // assert
+            propertyCount.Should()
+                         .Be(expected);
+        }
+
+        [Theory]
+        [ClassData(typeof(ClassPropertyNames))]
+        public void ClassContainsProperty(string propertyName) {
+            // arrange
+            var type       = typeof($className$);
+            var properties = type.GetProperties();
+
+            // act
+            var found = properties.Any(p => p.Name == propertyName);
+
+            // assert
+            found.Should()
+                 .BeTrue();
+        }
+    }]]></Code>
     </Snippet>
   </CodeSnippet>
 </CodeSnippets>
